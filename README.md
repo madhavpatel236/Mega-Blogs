@@ -45,6 +45,24 @@ npm i appwrite
 ```
 - Now we can use the appwrite authentication as well as other services in out project, Now From the appwrite Documentation we can use all the property https://appwrite.io/docs/references <br> <br>  In this project i used the authentication property in much optimize way so that it will easy for you to understand and also make your code more readable. ` src > appwrite > auth.js `
 
-- Now after the authentication portion we will implement or build the configurtion part of our project. for that i was learned from the documentaion. 
-
+- Now after the authentication portion we will implement or build the configurtion part of our project. for that i was learned from the documentaion. <br> <br> 
 In our case we have many config like createPost, deletePost, updatePost, getPosts, uplodeFiles etc. ` src > appwrite > config.js `
+
+# React-redux integration with Appwrite Services
+
+npm i 
+
+After the authentication and configration session Now i was create a React-Redux Integration Session With The AppWrite Services. Because at the time of createPost i will need to check that user was login or not, also for edit the post i will need to check the status(active, inactive) based on the status i will them permisson to edit the post. <br> <br>
+For finding the status of the user as well as for finding the authenticaton of the user we need to use the react-redux.<br> <br>
+
+- in the react-redux, I need to create one store and one reducer (Slice.js file)<br> <br>
+    - Store: In the Store.js we have all the info of the reducer, in our case we have a authSlice so in the store, store has all the letest info of the authentication part.<br> <br>
+    - reducers (authSlice) : From this file we pass in most of the cases 3 values `name, initialState, reducers.` <br> <br>
+     In my case i have 2 reducers which is login and logout. from the both reducers i was pass the userStstus and userData. `( src > store > authSlice.js).`  
+    
+    ### NOTE:  In the case of exporting we need to create reducer as well as  individual reducer like <br> export const {login, logout} = authSlice.actions; <br> export default authSlice.reducer;
+
+
+
+
+    
