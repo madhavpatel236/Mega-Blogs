@@ -50,7 +50,10 @@ In our case we have many config like createPost, deletePost, updatePost, getPost
 
 # React-redux integration with Appwrite Services
 
-npm i 
+```
+npm install react-redux
+npm install @reduxjs/toolkit
+```
 
 After the authentication and configration session Now i was create a React-Redux Integration Session With The AppWrite Services. Because at the time of createPost i will need to check that user was login or not, also for edit the post i will need to check the status(active, inactive) based on the status i will them permisson to edit the post. <br> <br>
 For finding the status of the user as well as for finding the authenticaton of the user we need to use the react-redux.<br> <br>
@@ -60,7 +63,7 @@ For finding the status of the user as well as for finding the authenticaton of t
     - reducers (authSlice) : From this file we pass in most of the cases 3 values `name, initialState, reducers.` <br> <br>
      In my case i have 2 reducers which is login and logout. from the both reducers i was pass the userStstus and userData. `( src > store > authSlice.js).`  
     
-    ### NOTE:  In the case of exporting we need to create reducer as well as  individual reducer like <br> export const {login, logout} = authSlice.actions; <br> export default authSlice.reducer;
+    #### Note:  In the case of exporting we need to create reducer as well as  individual reducer like <br> export const {login, logout} = authSlice.actions; <br> export default authSlice.reducer;
 
 
 
