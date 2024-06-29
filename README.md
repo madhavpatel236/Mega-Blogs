@@ -9,7 +9,7 @@
 ( iv ) Text Editor : For the text editor we use the `TinyMCE` react component. 
 
 
-# CREATE APPWRITE SERVICES
+# Create Appwrite Services
 
 After Creating the project in the appwrite services,
 
@@ -24,7 +24,7 @@ After Creating the project in the appwrite services,
     -> Now we Create the Storage Service for storing the images and files in the storage service.
 
 - After setup the appwrite services we need to create the `.env` file in our project source code  and in this file we need to set all the environment variable.
-For our Project we need, <br>
+For our Project we need : 
 VITE_APIWRITE_URL, 
 VITE_APIWRITE_PROJECT_ID, 
 VITE_APIWRITE_DATABASE_ID, 
@@ -33,7 +33,7 @@ VITE_APIWRITE_BUCKET_ID
 
  ### Note: .env file does not uplode in any platform like github or any where
 
-- After updating the .env variable we will need to save this in the one object because some times if we directly use the .env variable then not work properly so for that we have to create a single object and inside it we can add all the environment variables. <br>
+- After updating the .env variable we will need to save this in the one object because some times if we directly use the .env variable then not work properly so for that we have to create a single object and inside it we can add all the environment variables.
  In Our Project we will create a saperate file at `src > conf > conf.js.`
 
 # Authentication using the Appwrite Services
@@ -43,9 +43,7 @@ VITE_APIWRITE_BUCKET_ID
 ```
 npm i appwrite
 ```
-- Now we can use the appwrite authentication as well as other services in out project, Now From the appwrite Documentation we can use all the property https://appwrite.io/docs/references
-
-In this project i used the authentication property in much optimize way so that it will easy for you to understand and also make your code more readable. ` src > appwrite > auth.js `
+- Now we can use the appwrite authentication as well as other services in out project, Now From the appwrite Documentation we can use all the property https://appwrite.io/docs/references <br> <br>  In this project i used the authentication property in much optimize way so that it will easy for you to understand and also make your code more readable. ` src > appwrite > auth.js `
 
 - Now after the authentication portion we will implement or build the configurtion part of our project. for that i was learned from the documentaion. 
 
