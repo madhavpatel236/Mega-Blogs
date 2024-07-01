@@ -8,6 +8,8 @@
 
 ( iv ) Text Editor : For the text editor we use the `TinyMCE` react component. 
 
+( v ) Style: Tailwind
+
 
 # Create Appwrite Services
 
@@ -61,11 +63,18 @@ For finding the status of the user as well as for finding the authenticaton of t
 - in the react-redux, I need to create one store and one reducer (Slice.js file)<br> <br>
     - Store: In the Store.js we have all the info of the reducer, in our case we have a authSlice so in the store, store has all the letest info of the authentication part.<br> <br>
     - reducers (authSlice) : From this file we pass in most of the cases 3 values `name, initialState, reducers.` <br> <br>
-     In my case i have 2 reducers which is login and logout. from the both reducers i was pass the userStstus and userData. `( src > store > authSlice.js).`  
+     In my case I have 2 reducers which is login and logout. from the both reducers i was pass the userStstus and userData. `( src > store > authSlice.js).`  
     
     #### Note:  In the case of exporting we need to create reducer as well as  individual reducer like <br> export const {login, logout} = authSlice.actions; <br> export default authSlice.reducer;
 
 
+# Build Flow of the Project
 
+After all the above steps, 
+
+*In this Project we have one condition that is if the user can't login then post will not be shows so this is one condition.*<br> <br>
+- At the time of opning of the website we have check the user that it is authenticate or not for that we write a logic in the App.jsx. 
+
+- Now we will create a basic components  like Header, Footer etc. ` src > appwrite > component`
 
     

@@ -41,7 +41,7 @@ export class AuthService {
     // get current user details for find the Active status of the user
     async getCurrentUser() {
         try {
-            return this.account.get();
+            return await this.account.get();
         } catch (error) {
             console.log("AppWrite Service :: getCurrentUSer :: error", error)
         }
