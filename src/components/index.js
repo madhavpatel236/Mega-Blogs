@@ -8,6 +8,7 @@ import Button from "./Button";
 import Input from "./Input"
 import Select from "./Select";
 import IndividualCard from "./IndividualCard";
+import Login from "./Login";
 
 export {
     Header,
@@ -19,6 +20,6 @@ export {
     Input,
     Select,
     IndividualCard,
-    
+    Login,
 
 };
