@@ -77,4 +77,14 @@ After all the above steps,
 
 - Now we will create a basic components  like Header, Footer etc. ` src > appwrite > component`
 
+- in the Header Components we will make a one separate file which is `LogoutBtn.jsx` because at the time of user already login at this time we need to show the logoutBtn so for that we make a only LogoutBtn functionality saperatily.
+
     
+
+
+
+
+
+
+
+    // TODO: authStatus
