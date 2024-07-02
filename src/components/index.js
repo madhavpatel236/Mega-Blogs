@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import Containor from '../components/Containor/Containor'
 import LogoutBtn from "./Header/LogoutBtn";
 import Button from "./Button";
-import input from "./input";
+import Input from "./Input"
+import Select from "./Select";
 
 export {
     Header,
@@ -14,6 +15,7 @@ export {
     Containor,
     LogoutBtn,
     Button,
-    input,
-    
+    Input,
+    Select,
+
 };
