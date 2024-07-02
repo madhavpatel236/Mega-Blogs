@@ -7,6 +7,7 @@ import LogoutBtn from "./Header/LogoutBtn";
 import Button from "./Button";
 import Input from "./Input"
 import Select from "./Select";
+import IndividualCard from "./IndividualCard";
 
 export {
     Header,
@@ -17,5 +18,7 @@ export {
     Button,
     Input,
     Select,
+    IndividualCard,
+    
 
 };
