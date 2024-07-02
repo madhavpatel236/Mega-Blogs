@@ -79,6 +79,9 @@ After all the above steps,
 
 - in the Header Components we will make a one separate file which is `LogoutBtn.jsx` because at the time of user already login at this time we need to show the logoutBtn so for that we make a only LogoutBtn functionality saperatily.
 
+- We can also create a saperate Input component, from the use of that component we can directly use the input and lable field in any part of the codespace thsi is very importent for the best coding practice because if we have 30 times need a input field then we cannot create them each time. that means in short this is the `common Input field component.`  
+
+- we can also create a `common button component` for the reusability. ( same logic behind that as a Input field reusability ).
     
 
 
@@ -87,4 +90,4 @@ After all the above steps,
 
 
 
-    // TODO: authStatus
+    // TODO: authStatus, Swelect.jsx -> cooment improve for more understandable.
