@@ -1,4 +1,4 @@
-// This component is use for the card like we have total 10 blogs then we can use this componenet for the each blog card.
+// This component is use for the card for example like we have total 10 blogs then we can use this componenet for the each blog card.
 
 import React from 'react'
 import service from '../appwrite/config'
@@ -11,7 +11,7 @@ function IndividualCard({ $id, title, featuredImage }) {
             <div className='w-full bg-gray-200 rounded-xl p-4'>
                 <div className='w-full justify-center mb-4'>
                     <img
-                        src={service.getFilePreview($id)}
+                        src={service.getFilePreview(featuredImage)}
                         alt={title}
                         className='rounded-xl' />
                 </div>

@@ -81,9 +81,13 @@ After all the above steps,
 
 - We can also create a saperate Input component, from the use of that component we can directly use the input and lable field in any part of the codespace thsi is very importent for the best coding practice because if we have 30 times need a input field then we cannot create them each time. that means in short this is the `common Input field component.`  
 
-- we can also create a `common button component` for the reusability. ( same logic behind that as a Input field reusability ).
+- we can also create a `common Button component` for the reusability. ( same logic behind that as a Input field reusability ).
     
+- for the individual components we can make a `Individualcard.jsx` component.
 
+- for the batter authentication we can make a `AuthLayout.jsx` comonent. in this folder we can make a security component.
+
+- in the RTE file we have a text editor which can use to crate a post. for the RTE we can use the `@tinymce`
 
 
 
