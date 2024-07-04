@@ -5,7 +5,6 @@
 import React, { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input, Select, RTE } from '../index'
-import Input from '../Input'
 import service from '../../appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -22,8 +21,35 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
         }
     })
 
+
     const navigate = useNavigate()
     const userData = useSelector((state) => state.user.data)
+
+
+    // for the slug input field 
+    const slugTransform = useCallback((value) => { // in the value we have a title of the blog
+        if (value && typeof value === 'string') {
+            return value
+                .trim()
+                .toLowerCase()
+                .replace(/^[a-zA-Z\d\s]+/g, '-')
+                .replace(/\s/g, '-')
+        }
+    }, [])
+
+    React.useEffect(() => {
+
+        const subscription = watch((value, { name }) => {  // here { name } is the watched field, in our case which is 'title' and value is the current value of the watch field (title). 
+            if (name === 'title') {  // here at the time of watch we chech that if watched field is title then...
+                setValue('slug', slugTransform(value.title, { shouldValidate: true }))
+            }
+        })
+        // retern for the batter optimization
+        return () => {
+            subscription.unsubscribe();
+        }
+
+    }, [watch, slugTransform, setValue])
 
     const Blog = async (data) => { // here at the data we get the changed value by the user
         // If we have go for the Edit the Blog.
@@ -61,89 +87,62 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
             }
         }
     }
+
+    return (
+        <form onSubmit={BlogForm} className='flex lfex-wrap'>
+            <div className="w-2/3 px-2">
+                <Input
+                    lable="Title: "
+                    placeholder="Title: "
+                    className="mb-4"
+                    {...register("title", { required: true })}
+                />
+                <Input
+                    lable="Slug: "
+                    placeholder="Slug"
+                    className="mb-4"
+                    {...register("slug", { required: true })}
+                    onInput={(e) => {
+                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
+                    }}
+                />
+
+                <RTE
+                    label="Content :"
+                    name="content"
+                    control={control}  // here we connect or control the RTE editor
+                    defaultValue={getValues("content")}
+                />
+            </div>
+            <div className="w-1/3 px-2">
+                <Input
+                    label="Featured Image :"
+                    type="file"
+                    className="mb-4"
+                    accept="image/png, image/jpg, image/jpeg, image/gif"
+                    {...register("image", { required: !post })}
+                />
+                {post && (
+                    <div className="w-full mb-4">
+                        <img
+                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            alt={post.title}
+                            className="rounded-lg"
+                        />
+                    </div>
+                )}
+                <Select
+                    options={["active", "inactive"]}
+                    label="Status"
+                    className="mb-4"
+                    {...register("status", { required: true })}
+                />
+                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                    {post ? "Update" : "Submit"}
+                </Button>
+            </div>
+        </form>
+    )
 }
-
-// for the slug input field 
-const slugTransform = useCallback((value) => { // in the value we have a title of the blog
-    if (value && typeof value === 'string') {
-        return value
-            .trim()
-            .toLowerCase()
-            .replace(/^[a-zA-Z\d\s]+/g, '-')
-            .replace(/\s/g, '-')
-    }
-}, [])
-
-React.useEffect(() => {
-
-    const subscription = watch((value, { name }) => {  // here { name } is the watched field, in our case which is 'title' and value is the current value of the watch field (title). 
-        if (name === 'title') {  // here at the time of watch we chech that if watched field is title then...
-            setValue('slug', slugTransform(value.title, { shouldValidate: true }))
-        }
-    })
-    // retern for the batter optimization
-    return () => {
-        subscription.unsubscribe();
-    }
-
-}, [watch, slugTransform, setValue])
-
-
-return (
-    <form onSubmit={BlogForm} className='flex lfex-wrap'>
-        <div className='w-2/3' px-2>
-            <Input
-                lable="Title: "
-                placeholder="Title: "
-                className="mb-4"
-                {...register("title", { required: true })}
-            />
-            <Input
-                lable="Slug: "
-                placeholder="Slug"
-                className="mb-4"
-                {...register("slug", { required: true })}
-                onInput={(e) => {
-                    setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
-                }}
-            />
-
-            <RTE
-                label="Content :"
-                name="content"
-                control={control}  // here we connect or control the RTE editor
-                defaultValue={getValues("content")}
-            />
-        </div>
-        <div className="w-1/3 px-2">
-            <Input
-                label="Featured Image :"
-                type="file"
-                className="mb-4"
-                accept="image/png, image/jpg, image/jpeg, image/gif"
-                {...register("image", { required: !post })}
-            />
-            {post && (
-                <div className="w-full mb-4">
-                    <img
-                        src={appwriteService.getFilePreview(post.featuredImage)}
-                        alt={post.title}
-                        className="rounded-lg"
-                    />
-                </div>
-            )}
-            <Select
-                options={["active", "inactive"]}
-                label="Status"
-                className="mb-4"
-                {...register("status", { required: true })}
-            />
-            <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
-                {post ? "Update" : "Submit"}
-            </Button>
-        </div>
-    </form>
-)
-
 
 export default BlogForm

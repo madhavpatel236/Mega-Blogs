@@ -11,7 +11,7 @@ export default function RTE({ name, control, lable, defaultValue = '' }) {
                 <lable className='inline-block mb-2 pl-1' >{lable}</lable>
             }
 
-            <Controller /> // Here we use the controller from the react-hook-form because we make a editor in the saperate component (this compponent). so we need use the some referance at the form which is post or blog component so editor can understand that this edit field is for that form.
+            <Controller  // Here we use the controller from the react-hook-form because we make a editor in the saperate component (this compponent). so we need use the some referance at the form which is post or blog component so editor can understand that this edit field is for that form.
                 name={name || 'content'}
                 control={control} // this reference pass thrrough the parent form so from that we can know that this editor was for that form
                 render={({ field: { onChange } }) => (  //{ field: { onChange } } => that means if in the <editor /> field any changes may occure then render.

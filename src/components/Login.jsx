@@ -11,7 +11,7 @@ function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
-    const[error, setError] = useState("")
+    const [error, setError] = useState("")
 
     const login = async (data) => {
         setError("");
@@ -40,7 +40,7 @@ function Login() {
                 <p className="mt-2 text-center text-base text-black/60">
                     Don&apos;t have any account?&nbsp;
                     <Link
-                        to="/signup"
+                        to="/Signup"
                         className="font-medium text-primary transition-all duration-200 hover:underline"
                     >
                         Sign Up

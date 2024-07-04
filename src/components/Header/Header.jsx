@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
   const navigate = useNavigate()
@@ -16,22 +17,22 @@ function Header() {
     },
     {
       name: "Login",
-      slug: "/login",
+      slug: "/Login",
       active: !authStatus,
     },
     {
       name: "Signup",
-      slug: "/signup",
+      slug: "/Signup",
       active: !authStatus,
     },
     {
-      name: "All Posts",
-      slug: "/all-posts",
+      name: "AllBlogs",
+      slug: "/AllBlogs",
       active: authStatus,
     },
     {
-      name: "Add Post",
-      slug: "/add-post",
+      name: "AddBlog",
+      slug: "/AddBlog",
       active: authStatus,
     },
   ]
