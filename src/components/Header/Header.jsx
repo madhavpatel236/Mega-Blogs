@@ -22,16 +22,16 @@ function Header() {
     },
     {
       name: "Signup",
-      slug: "/Signup",
+      slug: "/SignUp",
       active: !authStatus,
     },
     {
-      name: "AllBlogs",
+      name: "All Blogs",
       slug: "/AllBlogs",
       active: authStatus,
     },
     {
-      name: "AddBlog",
+      name: "Add Blog",
       slug: "/AddBlog",
       active: authStatus,
     },
@@ -45,6 +45,7 @@ function Header() {
           <div className='mr-4'>
             <Link to='/'>
               <Logo width='70px' />
+
             </Link>
           </div>
           <ul className='flex ml-auto'>

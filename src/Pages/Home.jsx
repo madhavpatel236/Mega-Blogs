@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import service from '../appwrite/config'
 import { Containor, IndividualCard } from '../components/index'
 
 function Home() {
 
-    const [Posts, setPosts] = React.useState([])
+    const [Posts, setPosts] = useState([])
     useEffect(() => {
         service.getPost([])
             .then((posts) => {

@@ -48,8 +48,8 @@ function Login() {
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-                // form
-                <form onSubmit={handleSubmit(login)} className='mt-8'>
+                {/* Form */}
+                <form onSubmit={handleSubmit(login)} className='m-9'>
                     <div className='space-y-5'>
                         <Input
                             label="Email: "
