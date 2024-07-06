@@ -7,14 +7,16 @@ export class AuthService {
 
     constructor() {
         this.client
-            .setEndpoint(conf.appwriteUrl)
-            .setProject(conf.appwriteProjectId);
+            .setEndpoint('https://cloud.appwrite.io/v1')
+            .setProject('66755a04001dad428abd');
 
         this.account = new Account(this.client);
     }
 
     // create account
     async createAccount({ email, password, name }) {
+        console.log(conf.appwriteProjectId.toString())
+        console.log(conf.appwriteUrl)
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
@@ -30,11 +32,19 @@ export class AuthService {
     }
 
     // create login component
-    async login({ email, password }) {
+    // async login({ email, password }) {
+    //     try {
+    //         return await this.account.createEmailPasswordSession(email, password);
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
+
+    async login({email, password}){
         try {
-            return await this.account.createEmailPasswordSession(email, password);
+            return await this.account.createEmailPasswordSession(email, password)
         } catch (error) {
-            throw error;
+            console.log(" ")
         }
     }
 
@@ -43,7 +53,7 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            console.log("AppWrite Service :: getCurrentUSer :: error", error)
+            console.log("Appwrite serive :: getCurrentUser :: error", error.message);
         }
         return null;
     }
@@ -55,8 +65,6 @@ export class AuthService {
             console.log("AppWrite Service :: logout :: error", error)
         }
     }
-
-
 }
 
 

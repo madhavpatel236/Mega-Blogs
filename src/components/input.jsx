@@ -1,7 +1,6 @@
 // This component generally use for the form inputs, means whenever we need a input field in our application we use this component instand of the make it each time.
 
 import React, { useId } from 'react'
-
 // This is the one type of Syntex which we normally use.
 // function input({}) {
 //     const id = useId();

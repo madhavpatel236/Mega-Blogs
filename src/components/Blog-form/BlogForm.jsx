@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 
 function BlogForm({ blog }) { // here {blog} we get the full blog data in the case of the edit blog. 
 
-    const { register, handelSubmit, watch, setValue, control, getValue } = useForm({
+    const { register, handleSubmit , watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: blog ? blog.title : "",
             content: blog ? blog.content : "",
@@ -23,7 +23,7 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
 
 
     const navigate = useNavigate()
-    const userData = useSelector((state) => state.user.data)
+    const userData = useSelector(state => state.auth.userData)
 
 
     // for the slug input field 
@@ -89,7 +89,7 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
     }
 
     return (
-        <form onSubmit={BlogForm} className='flex lfex-wrap'>
+        <form onSubmit={handleSubmit(Blog)} className='flex lfex-wrap'>
             <div className="w-2/3 px-2">
                 <Input
                     lable="Title: "
@@ -120,25 +120,25 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
                     type="file"
                     className="mb-4"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
+                    {...register("image", { required: !Blog })}
                 />
-                {post && (
+                {Blog && (
                     <div className="w-full mb-4">
                         <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
-                            alt={post.title}
+                            src={service.getFilePreview(Blog.$id)}
+                            alt={Blog.title}
                             className="rounded-lg"
                         />
                     </div>
                 )}
                 <Select
-                    options={["active", "inactive"]}
+                    options={["Active", "Inactive"]}
                     label="Status"
                     className="mb-4"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
-                    {post ? "Update" : "Submit"}
+                <Button type="submit" bgColor={Blog ? "bg-green-500" : undefined} className="w-full">
+                    {Blog ? "Update" : "Submit"}
                 </Button>
             </div>
         </form>

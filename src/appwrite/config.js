@@ -8,8 +8,8 @@ export class Service {
 
     constructor() {
         this.client
-            .setEndpoint(conf.appwriteUrl)
-            .setProject(conf.appwriteProjectId);
+        .setEndpoint('https://cloud.appwrite.io/v1')
+        .setProject('66755a04001dad428abd');
 
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
@@ -19,7 +19,7 @@ export class Service {
         try {
             return this.databases.createDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteBucketID,
+                conf.appwriteBucketId,
                 slug, // slug work as a unique id
                 {
                     title,
@@ -53,11 +53,11 @@ export class Service {
         }
     }
 
-    async deletegePost(slug) {
+    async deletePost(slug) {
         try {
             await this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteBucketID,
+                conf.appwriteBucketId,
                 slug,
             )
             return true;
@@ -72,11 +72,11 @@ export class Service {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
-                conf.appwriteBucketID,
+                conf.appwriteBucketId,
                 queries,
             )
         } catch (error) {
-            console.log("Appwrite service :: getPost :: error", error);
+            console.log("Appwrite service :: getPost :: error", error.message);
             return false;
         }
     }
@@ -85,7 +85,7 @@ export class Service {
     async uplodeFile(file) {
         try {
             return await this.bucket.createFile(
-                conf.appwriteBucketID,
+                conf.appwriteBucketId,
                 ID.unique(),
                 file,
             )
@@ -99,7 +99,7 @@ export class Service {
     async deleteFile(fileId){
         try {
             await this.bucket.deleteFile(
-                conf.appwriteBucketID,
+                conf.appwriteBucketId,
                 file,
             )
             return true;
@@ -110,10 +110,10 @@ export class Service {
         }
     }
 
-    getFilePreview(FileId){
+    getFilePreview(featuredImage){
         try {
             this.bucket.getFilePreview(
-                conf.appwriteBucketID,
+                conf.appwriteBucketId,
                 FileId,
             )
         } catch (error) {
@@ -125,9 +125,6 @@ export class Service {
 
 
 }
-
-
-
 
 const service = new Service();
 export default service;

@@ -25,7 +25,7 @@ export default function Protected({children, authentication = true}) {
         // authstatus & authentication true means you are not authenticated.
         // in simple term authstatus false means that user will authenticate no need to check further
         if(authentication && authStatus !== authentication){ // true && false !== true => true
-            navigate("/login")
+            navigate("/Login")
         } else if(!authentication && authStatus !== authentication){ // false && false !== true => false
             navigate("/")
         }
