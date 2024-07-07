@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 
 function BlogForm({ blog }) { // here {blog} we get the full blog data in the case of the edit blog. 
 
-    const { register, handleSubmit , watch, setValue, control, getValues } = useForm({
+    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: blog ? blog.title : "",
             content: blog ? blog.content : "",
@@ -25,39 +25,13 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
     const navigate = useNavigate()
     const userData = useSelector(state => state.auth.userData)
 
-
-    // for the slug input field 
-    const slugTransform = useCallback((value) => { // in the value we have a title of the blog
-        if (value && typeof value === 'string') {
-            return value
-                .trim()
-                .toLowerCase()
-                .replace(/^[a-zA-Z\d\s]+/g, '-')
-                .replace(/\s/g, '-')
-        }
-    }, [])
-
-    React.useEffect(() => {
-
-        const subscription = watch((value, { name }) => {  // here { name } is the watched field, in our case which is 'title' and value is the current value of the watch field (title). 
-            if (name === 'title') {  // here at the time of watch we chech that if watched field is title then...
-                setValue('slug', slugTransform(value.title, { shouldValidate: true }))
-            }
-        })
-        // retern for the batter optimization
-        return () => {
-            subscription.unsubscribe();
-        }
-
-    }, [watch, slugTransform, setValue])
-
     const Blog = async (data) => { // here at the data we get the changed value by the user
         // If we have go for the Edit the Blog.
         if (blog) {
-            const file = data.image[0] ? service.uplodeFile(data.image[0]) : null // here we check that if new data.image are there then update the image of the blog.
+            const file = data.image[0] ? service.uploadFile(data.featuredImage[0]) : null // here we check that if new data.image are there then update the image of the blog.
 
             if (file) {
-                const deleteOldFile = await service.deleteFile(blog.featuredImage) // here we delete the old present image of the blog.
+                await service.deleteFile(blog.featuredImage) // here we delete the old present image of the blog.
             }
 
             const updateBlog = await service.updatePost(blog.$id, {   // after the uplode and delete the blog we update the blog. for that we need a blog.$id for updat the post in apperite services. 
@@ -65,28 +39,46 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
                 featuredImage: file ? file.$id : undefined, // here if we change the image then we also need to update the file.$id
             });
             if (updateBlog) {
-                navigate(`/blog/ ${updatePost.$id}`);
+                navigate(`/blog/ ${updateBlog.$id}`);
             };
-
         }
 
         // if we create a new post 
         else {
-            const uplodeFile = await service.uplodeFile(data.image[0])
+            const file = await service.uploadFile(data.featuredImage[0]);
 
-            if (uplodeFile) {
-                const fileId = uplodeFile.$id
-                data.featuredImage = fileId
-                const createPost = await service.createPost({
-                    ...data,
-                    userId: userData.$id, // userdata come from the store by the useselector.
-                })
-                if (createPost) {
-                    navigate(`/blog/${createPost.$id}`)
+            if (file) {
+                const fileId = file.$id;
+                data.featuredImage = fileId;
+                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+
+                if (dbPost) {
+                    navigate(`/post/${dbPost.$id}`);
                 }
             }
         }
     }
+
+    const slugTransform = useCallback((value) => {
+        if (value && typeof value === "string")
+            return value
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-zA-Z\d\s]+/g, "-")
+                .replace(/\s/g, "-");
+
+        return "";
+    }, []);
+
+    React.useEffect(() => {
+        const subscription = watch((value, { name }) => {
+            if (name === "title") {
+                setValue("slug", slugTransform(value.title), { shouldValidate: true });
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, [watch, slugTransform, setValue]);
 
     return (
         <form onSubmit={handleSubmit(Blog)} className='flex lfex-wrap'>
@@ -125,7 +117,7 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
                 {Blog && (
                     <div className="w-full mb-4">
                         <img
-                            src={service.getFilePreview(Blog.$id)}
+                            src={service.getFilePreview(Blog)}
                             alt={Blog.title}
                             className="rounded-lg"
                         />

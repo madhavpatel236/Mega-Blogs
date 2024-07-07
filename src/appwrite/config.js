@@ -8,25 +8,26 @@ export class Service {
 
     constructor() {
         this.client
-        .setEndpoint('https://cloud.appwrite.io/v1')
-        .setProject('66755a04001dad428abd');
+            .setEndpoint('https://cloud.appwrite.io/v1')
+            .setProject('66755a04001dad428abd');
 
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({ title, slug, content, featuredImage, status, userId }) {
+    async createPost({ title, file, slug, content, featuredImage, status, userId }) {
         try {
             return this.databases.createDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteBucketId,
+                '66755acd001e4defbd1c',
+                '66755b0900217b5b6c16',
                 slug, // slug work as a unique id
                 {
                     title,
                     content,
                     featuredImage,
                     status,
-                    userId
+                    userId,
+                    file
                 }
             )
         } catch (error) {
@@ -37,8 +38,8 @@ export class Service {
     async updatePost(slug, { title, content, featuredImage, status }) {
         try {
             return this.databases.updateDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteBucketID,
+                '66755acd001e4defbd1c',
+                '66755b0900217b5b6c16',
                 slug,
                 {
                     title,
@@ -56,8 +57,8 @@ export class Service {
     async deletePost(slug) {
         try {
             await this.databases.deleteDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteBucketId,
+                '66755acd001e4defbd1c',
+                '66755b0900217b5b6c16',
                 slug,
             )
             return true;
@@ -71,8 +72,8 @@ export class Service {
     async getPost(queries = [Query.equal("status", "active")]) {  // here if not create the index (Database > Blog > Articles > index) in the Appwrite services then we will not use the queries.
         try {
             return await this.databases.listDocuments(
-                conf.appwriteDatabaseId,
-                conf.appwriteBucketId,
+                '66755acd001e4defbd1c',
+                '66755b0900217b5b6c16',
                 queries,
             )
         } catch (error) {
@@ -82,38 +83,38 @@ export class Service {
     }
 
     // file uplode services
-    async uplodeFile(file) {
+    async uploadFile(file) {
         try {
-            return await this.bucket.createFile(
-                conf.appwriteBucketId,
+            return await this.bucket.createPost(
+                '66755c610031ad6accbd',
                 ID.unique(),
-                file,
+                file
             )
-
         } catch (error) {
             console.log("Appwrite service :: uplodeFile :: error", error);
             return false;
         }
     }
 
-    async deleteFile(fileId){
+    async deleteFile(file) {
         try {
             await this.bucket.deleteFile(
-                conf.appwriteBucketId,
+                '66755c610031ad6accbd',
                 file,
             )
             return true;
-            
+
         } catch (error) {
             console.log("Appwrite service :: deleteFile :: error", error);
             return false;
         }
     }
 
-    getFilePreview(featuredImage){
+    getFilePreview(FileId) {
+
         try {
             this.bucket.getFilePreview(
-                conf.appwriteBucketId,
+                '66755c610031ad6accbd',
                 FileId,
             )
         } catch (error) {
