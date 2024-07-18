@@ -15,7 +15,7 @@ export class Service {
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({ title, file, slug, content, featuredImage, status, userId }) {
+    async createPost({ title, file, slug, content, FeaturedImage, status, userID }) {
         try {
             return this.databases.createDocument(
                 '66755acd001e4defbd1c',
@@ -24,9 +24,9 @@ export class Service {
                 {
                     title,
                     content,
-                    featuredImage,
+                    FeaturedImage,
                     status,
-                    userId,
+                    userID,
                     file
                 }
             )
@@ -35,7 +35,7 @@ export class Service {
         }
     }
 
-    async updatePost(slug, { title, content, featuredImage, status }) {
+    async updatePost(slug, { title, content, FeaturedImage, status }) {
         try {
             return this.databases.updateDocument(
                 '66755acd001e4defbd1c',
@@ -68,8 +68,23 @@ export class Service {
         }
     }
 
+
+    async getPost(slug){
+        try {
+            return await this.databases.getDocument(
+                `66755acd001e4defbd1c`,
+                `66755b0900217b5b6c16`,
+                slug
+            
+            )
+        } catch (error) {
+            console.log("Appwrite serive :: getPost :: error", error);
+            return false
+        }
+    }
+
     // here we only get the post which show the active status of the user not get the all post
-    async getPost(queries = [Query.equal("status", "active")]) {  // here if not create the index (Database > Blog > Articles > index) in the Appwrite services then we will not use the queries.
+    async getPosts(queries = [Query.equal("status", "active")]) {  // here if not create the index (Database > Blog > Articles > index) in the Appwrite services then we will not use the queries.
         try {
             return await this.databases.listDocuments(
                 '66755acd001e4defbd1c',
@@ -85,7 +100,7 @@ export class Service {
     // file uplode services
     async uploadFile(file) {
         try {
-            return await this.bucket.createPost(
+            return await this.bucket.createFile(
                 '66755c610031ad6accbd',
                 ID.unique(),
                 file
@@ -110,12 +125,12 @@ export class Service {
         }
     }
 
-    getFilePreview(FileId) {
+    getFilePreview(fileId) {
 
         try {
-            this.bucket.getFilePreview(
+           return this.bucket.getFilePreview(
                 '66755c610031ad6accbd',
-                FileId,
+                fileId,
             )
         } catch (error) {
             console.log("Appwrite service :: getFilePreview :: error", error);

@@ -31,13 +31,14 @@ export default function Blog() {
             }
         });
     };
-
     return post ? (
         <div className="py-8">
             <Containor>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
-                        src={appwriteService.getFilePreview(post.featuredImage)}
+
+                        src={appwriteService.getFilePreview(post.FeaturedImage)}
+
                         alt={post.title}
                         className="rounded-xl"
                     />

@@ -3,10 +3,10 @@ import service from '../appwrite/config'
 import { Containor, IndividualCard } from '../components/index'
 
 function Home() {
-
     const [Posts, setPosts] = useState([])
+    console.log(Posts)
     useEffect(() => {
-        service.getPost([])
+        service.getPosts()
             .then((posts) => {
                 if (posts) {
                     setPosts(posts.documents)

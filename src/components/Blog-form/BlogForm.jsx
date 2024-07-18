@@ -15,20 +15,21 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: blog ? blog.title : "",
+
             content: blog ? blog.content : "",
             slug: blog ? blog.slug : "",
             status: blog ? blog.status : "",
         }
     })
 
-
     const navigate = useNavigate()
     const userData = useSelector(state => state.auth.userData)
 
     const Blog = async (data) => { // here at the data we get the changed value by the user
         // If we have go for the Edit the Blog.
+        console.log(data)
         if (blog) {
-            const file = data.image[0] ? service.uploadFile(data.featuredImage[0]) : null // here we check that if new data.image are there then update the image of the blog.
+            const file = data.featuredImage[0] ? service.uploadFile(data.featuredImage[0]) : null // here we check that if new data.image are there then update the image of the blog.
 
             if (file) {
                 await service.deleteFile(blog.featuredImage) // here we delete the old present image of the blog.
@@ -49,8 +50,8 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
 
             if (file) {
                 const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+                data.FeaturedImage = fileId;
+                const dbPost = await service.createPost({ ...data, userID: userData.$id });
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
@@ -108,11 +109,12 @@ function BlogForm({ blog }) { // here {blog} we get the full blog data in the ca
             </div>
             <div className="w-1/3 px-2">
                 <Input
-                    label="Featured Image :"
+                    label="featuredImage :"
                     type="file"
                     className="mb-4"
-                    accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !Blog })}
+                    onChange={(e) => console.log(e.target.files) }
+                    accept="featuredImage/png, featuredImage/jpg, featuredImage/jpeg, featuredImage/gif"
+                    {...register("featuredImage", { required: !Blog })}
                 />
                 {Blog && (
                     <div className="w-full mb-4">
