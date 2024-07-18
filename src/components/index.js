@@ -11,7 +11,6 @@ import RTE from "./RTE";
 import AuthLayout from "./AuthLayout";
 import BlogForm from "./Blog-form/BlogForm";
 import Signup from "./Signup";
-import Input from './Input';
 export {
     Header,
     Footer,
@@ -26,5 +25,4 @@ export {
     AuthLayout,
     BlogForm,
     Signup,
-    Input,
 };
