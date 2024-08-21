@@ -91,6 +91,11 @@ After all the above steps,
 
 #
 ![IMG1](src/img/1.png)
+![IMG2](src/img/2.png)
+![IMG3](src/img/3.png)
+![IMG4](src/img/4.png)
+![IMG5](src/img/5.png)
+![IMG6](src/img/6.png)
 
 
 
