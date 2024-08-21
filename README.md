@@ -89,7 +89,8 @@ After all the above steps,
 
 - in the RTE file we have a text editor which can use to crate a post. for the RTE we can use the `@tinymce`
 
-
+#
+![IMG1]{./src/img/1.png}
 
 
 
