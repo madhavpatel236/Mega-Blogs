@@ -1,5 +1,4 @@
 # Mega-Blogs Project
-#
 ## Installation
 
 #### Clone the repository
